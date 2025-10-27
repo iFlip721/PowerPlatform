@@ -1,0 +1,1009 @@
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "runs": [
+    {
+      "columnKind": "utf16CodeUnits",
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "results": [
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31.div_8.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31.div_8.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "EditSettingsScreen",
+                "type": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31.div_8"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_1.div_9.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_1.div_9.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "EditSettingsScreen",
+                "type": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_1.div_9"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_2.div_19.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_2.div_19.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "EditSettingsScreen",
+                "type": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_2.div_19"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_3.div_20.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_3.div_20.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "EditSettingsScreen",
+                "type": "EditSettingsScreen.cFrame_1.cMainContent_7.cPane_1.PrivilegeRiskInfoContainer.PrivilegeRiskRatingsContainer.Container31_3.div_20"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "EditSettingsScreen.cDeleteDialog.Container19_1.Container24_2.div_22.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "EditSettingsScreen.cDeleteDialog.Container19_1.Container24_2.div_22.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "EditSettingsScreen",
+                "type": "EditSettingsScreen.cDeleteDialog.Container19_1.Container24_2.div_22"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cTopNav_5.Container11_8.ButtonCanvas1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cTopNav_5.Container11_8.ButtonCanvas1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "PaneListScreen",
+                "type": "PaneListScreen.cAppFrame_4.cTopNav_5.Container11_8.ButtonCanvas1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.PrivInfoContainer.Container27.rCardDivider_12.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.PrivInfoContainer.Container27.rCardDivider_12.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PaneListScreen",
+                "type": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.PrivInfoContainer.Container27.rCardDivider_12"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.PrivInfoContainer.div_24.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.PrivInfoContainer.div_24.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PaneListScreen",
+                "type": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.PrivInfoContainer.div_24"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.div_23.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.div_23.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PaneListScreen",
+                "type": "PaneListScreen.cAppFrame_4.cMainContent_5.cPane_0.Container6.Container3.SelectedPrivInfoContainer.div_23"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.Label3_14.FocusedBorderThickness"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.Label3_14.FocusedBorderThickness",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "FocusedBorderThickness",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.Label3_14"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-FocusBorderShouldBeVisible",
+          "ruleIndex": 2
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.Label3_14.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.Label3_14.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.Label3_14"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.rDivider_PageHeader_13.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.rDivider_PageHeader_13.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.rDivider_PageHeader_13"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.rDivider_PageHeader_13.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.rDivider_PageHeader_13.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.cPageHeaderTop_8.cPageHeaderTitle_10.cHeaderText_13.rDivider_PageHeader_13"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.div_26.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.div_26.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.div_26"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.div_26.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.div_26.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cPageHeaderMain_5.div_26"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.cEmptyState_6.Image3_10.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.cEmptyState_6.Image3_10.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.cEmptyState_6.Image3_10"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.cEmptyState_6.Image3_10.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.cEmptyState_6.Image3_10.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.cEmptyState_6.Image3_10"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.div_27.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.div_27.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.div_27"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.div_27.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.div_27.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.cListCard_4.div_27"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.div_1.AccessibleLabel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.div_1.AccessibleLabel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "AccessibleLabel",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.div_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-AccessibleLabelNeeded",
+          "ruleIndex": 1
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.div_1.TabIndex"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.cAppFrame_1.cScreenContainer_1.div_1.TabIndex",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "TabIndex",
+                "module": "PrintScreen",
+                "type": "PrintScreen.cAppFrame_1.cScreenContainer_1.div_1"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+          "ruleIndex": 0
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App.currentAssessmentSettingGUID"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App.currentAssessmentSettingGUID",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "currentAssessmentSettingGUID",
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "App"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "App",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "module": "App",
+                "type": "App"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-DataSourceDefaultMaxRowsLimit",
+          "ruleIndex": 4
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PaneListScreen.ctxGridEvent"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PaneListScreen.ctxGridEvent",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "ctxGridEvent",
+                "module": "PaneListScreen",
+                "type": "PaneListScreen"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PaneListScreen.showPrvEditContainer"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PaneListScreen.showPrvEditContainer",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "showPrvEditContainer",
+                "module": "PaneListScreen",
+                "type": "PaneListScreen"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.currentSelectedLevel"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.currentSelectedLevel",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "currentSelectedLevel",
+                "module": "PrintScreen",
+                "type": "PrintScreen"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.currentSelectedPrivilege"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.currentSelectedPrivilege",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "currentSelectedPrivilege",
+                "module": "PrintScreen",
+                "type": "PrintScreen"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.hidePanelBackButton"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.hidePanelBackButton",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "hidePanelBackButton",
+                "module": "PrintScreen",
+                "type": "PrintScreen"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.showPane"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.showPane",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "showPane",
+                "module": "PrintScreen",
+                "type": "PrintScreen"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        },
+        {
+          "locations": [
+            {
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "PrintScreen.showPrvEditContainer"
+                }
+              ],
+              "physicalLocation": {
+                "address": {
+                  "fullyQualifiedName": "PrintScreen.showPrvEditContainer",
+                  "relativeAddress": 0
+                }
+              },
+              "properties": {
+                "member": "showPrvEditContainer",
+                "module": "PrintScreen",
+                "type": "PrintScreen"
+              }
+            }
+          ],
+          "message": {
+            "id": "issue"
+          },
+          "properties": {
+            "level": "Medium"
+          },
+          "ruleId": "app-UnusedVariables",
+          "ruleIndex": 3
+        }
+      ],
+      "tool": {
+        "driver": {
+          "fullName": "PowerApps app checker",
+          "name": "PowerApps app checker",
+          "rules": [
+            {
+              "id": "acc-TabIndexShouldBeDefinedForInteractiveControl",
+              "messageStrings": {
+                "issue": {
+                  "text": "Missing tab stop"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Set TabIndex to 0 or greater to ensure that interactive elements have a tab stop."
+                ],
+                "level": "Medium",
+                "primaryCategory": "accessibility",
+                "whyFix": "People who use the keyboard with your app will not be able to access this element without a tab stop."
+              }
+            },
+            {
+              "id": "acc-AccessibleLabelNeeded",
+              "messageStrings": {
+                "issue": {
+                  "text": "Missing accessible label"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Edit the accessible label property to describe the item."
+                ],
+                "level": "Medium",
+                "primaryCategory": "accessibility",
+                "whyFix": "If there's no accessible text, people who can’t see the screen won't understand what’s in images and controls."
+              }
+            },
+            {
+              "id": "acc-FocusBorderShouldBeVisible",
+              "messageStrings": {
+                "issue": {
+                  "text": "Focus isn't showing"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Change the FocusedBorderThickness property to be more than 0."
+                ],
+                "level": "Medium",
+                "primaryCategory": "accessibility",
+                "whyFix": "If the focus isn't visible, people who don't use a mouse won't be able to see it when they're interacting with the app."
+              }
+            },
+            {
+              "id": "app-UnusedVariables",
+              "messageStrings": {
+                "issue": {
+                  "text": "Unused variable"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Remove the unused variable."
+                ],
+                "level": "Medium",
+                "primaryCategory": "performance",
+                "whyFix": "This variable is declared but is not referenced by any control, so it is not needed."
+              }
+            },
+            {
+              "id": "app-DataSourceDefaultMaxRowsLimit",
+              "messageStrings": {
+                "issue": {
+                  "text": "Data row limit for non-delegable queries is more than 500"
+                }
+              },
+              "properties": {
+                "componentType": "app",
+                "howToFix": [
+                  "Update 'Data row limit for non-delegable queries' in the advanced app settings."
+                ],
+                "level": "Medium",
+                "primaryCategory": "performance",
+                "whyFix": "A 'data row limit' more than 500 may result in a slower app when running non-delegable queries, because the app will have to process every row itself, rather than running the query on the server."
+              }
+            }
+          ],
+          "version": "1.345"
+        }
+      }
+    }
+  ],
+  "version": "2.1.0"
+}

@@ -1,0 +1,954 @@
+DocumentGeneratorScreen As screen:
+    LoadingSpinnerColor: =RGBA(0, 120, 212, 1)
+    OnVisible: |-
+        =Concurrent(
+            UpdateContext(
+                {
+                    solutionName: Blank(),
+                    varDisablePreview: true
+                }
+            ),
+            Clear(ConfigurationCollection),
+            Clear(SolutionDetailsDataset)
+        );
+        Set(CurrentTimerStep, 0); // To track which duration we are on
+        Set(MaxTimerSteps, 3);    // Total number of runs
+
+    TimerChangeTypingEffect As timer:
+        AutoPause: =false
+        BorderColor: =RGBA(0, 120, 212, 1)
+        BorderStyle: =BorderStyle.None
+        DisabledBorderColor: =RGBA(244, 244, 244, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Duration: |-
+            =Switch(
+                CurrentTimerStep,
+                0, 3000,  
+                1, CountRows(IntelligentReviewVisualizer1_6.SolutionDetails.canvasApps)*500 + 3000,    
+                2, CountRows(IntelligentReviewVisualizer1_6.SolutionDetails.canvasApps)*500 + CountRows(IntelligentReviewVisualizer1_6.SolutionDetails.workflows)*800 + 3000,   
+                3, CountRows(IntelligentReviewVisualizer1_6.SolutionDetails.canvasApps)*500 + CountRows(IntelligentReviewVisualizer1_6.SolutionDetails.workflows)*800 + 15000,    
+                CountRows(IntelligentReviewVisualizer1_6.SolutionDetails.canvasApps)*500 + CountRows(IntelligentReviewVisualizer1_6.SolutionDetails.workflows)*800 + 28000         
+            )
+        Fill: =RGBA(0, 120, 212, 1)
+        FocusedBorderThickness: =2
+        Font: =Font.'Segoe UI'
+        HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+        OnTimerEnd: |+
+            =Switch(
+                CurrentTimerStep,
+                0,
+                UpdateContext({latencyMessage:"✨ Using Generative AI to understand the solution..."}),
+                1,
+                UpdateContext({latencyMessage:"📖 Unpacking and understanding the Apps..."}),
+                2,
+                UpdateContext({latencyMessage:"🔍 Taking a closer look at Flows... "}),
+                3,
+                UpdateContext({latencyMessage:"📑 Almost there..."});
+            );
+            
+            // Then increment (if not done)
+            If(
+                CurrentTimerStep < 3,
+                Set(CurrentTimerStep, CurrentTimerStep + 1);
+                UpdateContext({varTimerStart: false});
+                UpdateContext({varTimerStart: true});
+            )
+            
+        OnTimerStart: |-
+            =UpdateContext({varEnableTypingEffect:true});
+            /*If(!varTimerReset,
+            ClearCollect(
+                        SolutionDetailsDataset,
+                        {
+                            SolutionDetailItemKey: "information",
+                            SolutionDetailItemDisplayName: "",
+                            SolutionDetailItemValue: Blank(),
+                            SolutionDetailItemVisible: true,
+                            SolutionDetailItemHTML: "<h2 style='font-size: 26px; font-weight: bold;color: #0078d4;'>📖 Unpacking and understanding the Apps :</h2><br/>"
+                        }));*/
+        PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        Repeat: =
+        Size: =10.5
+        Start: =varTimerStart
+        X: =1204
+        Y: =700
+        ZIndex: =1
+
+    TimerChangeScrLoadMsg As timer:
+        AutoStart: =true
+        BorderColor: =RGBA(0, 120, 212, 1)
+        BorderStyle: =BorderStyle.None
+        DisabledBorderColor: =RGBA(244, 244, 244, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        DisabledFill: =RGBA(244, 244, 244, 1)
+        Duration: =15000
+        Fill: =RGBA(0, 120, 212, 1)
+        FocusedBorderThickness: =2
+        Font: =Font.'Segoe UI'
+        HoverBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+        HoverColor: =RGBA(255, 255, 255, 1)
+        HoverFill: =ColorFade(RGBA(0, 120, 212, 1), -10%)
+        OnTimerEnd: =Set(CurrentLoaderMessage, Last(FirstN(LoaderValue, Rand() * CountRows(LoaderValue) + 1)))
+        PressedBorderColor: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        PressedColor: =RGBA(255, 255, 255, 1)
+        PressedFill: =ColorFade(RGBA(0, 120, 212, 1), -30%)
+        Repeat: =true
+        Size: =10.5
+        X: =1184
+        Y: =680
+        ZIndex: =2
+
+    "Mermaid2PngSolutionDiagram As 'Mermaid2Png (0.0.25)'":
+        DisplayMode: =DisplayMode.Edit
+        Height: =200
+        MermaidCode: |-
+            ={mermaidCode:FirstN(IntelligentReviewVisualizer1_6.SolutionDetails.mermaidSolutionArchitectureExpressions,10)}
+            
+            /*"
+            %%{init: {'theme': 'neutral'}}%%
+            graph TB;
+             classDef CanvasApps fill:#e7bfcf, stroke-width:0px,font-size: 24px;
+             
+                subgraph TestSolution[""Copilot Studio Kit""]
+                    style TestSolution stroke-width:0px
+                    subgraph AppCluster[""PowerApps""]
+                        style AppCluster fill:#f5f5f5,stroke-width:0px;
+                        App0[""Webchat Playground""]:::CanvasApps
+                        App1[""Adaptive Cards""]:::CanvasApps
+                        App2[""Conversation KPI""]:::CanvasApps
+                    end
+             
+                    subgraph FlowCluster[""Power Automate""]
+                        style FlowCluster fill:#edf5fa,stroke-width:0px;
+                        Flow0[""Adaptive Card Account Summary""]
+                        Flow1[""Adaptive Card Approval Request""]
+                        Flow2[""Adaptive Card Approval Request Change Id""]
+                    end
+             
+                    subgraph TableCluster[""Dataverse Tables""]
+                        style TableCluster fill:#edfaf1,stroke-width:0px;
+                        Table0[""cat_AgentTranscripts""]
+                        Table1[""cat_ChatbotStyle""]
+                        Table2[""cat_CopilotCard""]
+                    end
+                    App0 -->|depends on| Flow0
+                    App0 -->|depends on| Flow1
+                    App0 -->|depends on| Flow2
+                    App0 -->|depends on| Table0
+                    App0 -->|depends on| Table1
+                    App0 -->|depends on| Table2
+                    Table2 -->|depends on| Flow2
+                end
+                "*/
+        OnChange: |-
+            = ClearCollect(TemporarySolutionDetailsDataset, SolutionDetailsDataset);
+             ClearCollect(SolutionDetailsDataset, Blank());
+              ClearCollect(SolutionDetailsDataset, TemporarySolutionDetailsDataset);
+        Width: =200
+        X: =52
+        Y: =336
+        ZIndex: =3
+
+    "Mermaid2PngERDiagram As 'Mermaid2Png (0.0.25)'":
+        DisplayMode: =DisplayMode.Edit
+        Height: =200
+        MermaidCode: |-
+            ={mermaidCode:[IntelligentReviewVisualizer1_6.SolutionDetails.mermaidERDiagramExpression]}
+        Width: =200
+        X: =52
+        Y: =466
+        ZIndex: =4
+
+    IntelligentReviewVisualizer1_6 As IntelligentReviewVisualizer.pcfdataset:
+        ChooseButtonTitle: ="Upload Solution"
+        DisplayMode: =DisplayMode.Edit
+        ExtractSolutionDetails: =true
+        Height: =20
+        HideUserInterface: =true
+        InputEvent: =varStartReview
+        Items: =
+        OnReviewComplete: |-
+            =// Identify & Isolated valid and non-repetitive solution extraction
+            If(!IsBlank(Self.SolutionDetails) && Self.SolutionDetails.solutionOverview.uniqueName <> solutionName,
+            UpdateContext({varDisablePreview: true,showSaveLoader: false,varEnableTypingEffect:true, solutionName:Self.SolutionDetails.solutionOverview.uniqueName});
+            Set(CurrentTimerStep, 0);
+            UpdateContext({varTimerStart:false});
+            UpdateContext({varTimerStart:true});
+            // Show type of activity on the UI
+            //Prepare Configration Collection
+            Collect(ConfigurationCollection,Table(
+                {
+                    ConfigItemValue: DocumentSectionString.Overview,
+                    ConfigItemDisplayName: OverviewSection.DisplayName,
+                    ConfigItemParentValue: Blank(),
+                    ConfigItemChecked: true
+                },
+                {
+                    ConfigItemValue: DocumentSectionString.SolutionOverview,
+                    ConfigItemDisplayName: SolutionOverview.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.Overview,
+                    ConfigItemChecked: true
+                },
+                {
+                    ConfigItemValue: DocumentSectionString.SolutionDetails,
+                    ConfigItemDisplayName: SolutionDetails.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.Overview,
+                    ConfigItemChecked: true
+                },
+                {
+                    ConfigItemValue: DocumentSectionString.ArchitectureDiagram,
+                    ConfigItemDisplayName: ArchitectureDiagramSection.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.Overview,
+                    ConfigItemChecked: true
+                },
+                {
+                    ConfigItemValue: DocumentSectionString.Prerequisites,
+                    ConfigItemDisplayName: PrerequisitesSection.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.Overview,
+                    ConfigItemChecked: true
+                },
+                {
+                    ConfigItemValue: DocumentSectionString.UXAndAutomations,
+                    ConfigItemDisplayName: UXAndAutomationsSection.DisplayName,
+                    ConfigItemParentValue: Blank(),
+                    ConfigItemChecked: true
+                },
+                {
+                    ConfigItemValue: DocumentSectionString.DatanSecurity,
+                    ConfigItemDisplayName: DatanSecuritySection.DisplayName,
+                    ConfigItemParentValue: Blank(),
+                    ConfigItemChecked: true
+                },
+                {
+                    ConfigItemValue: DocumentSectionString.Summary,
+                    ConfigItemDisplayName: Summary.DisplayName,
+                    ConfigItemParentValue: Blank(),
+                    ConfigItemChecked: true
+                }));
+            If(!IsEmpty(Self.SolutionDetails.canvasApps),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.Apps,
+                    ConfigItemDisplayName: DocumentSectionString.Apps,
+                    ConfigItemParentValue: DocumentSectionString.UXAndAutomations,
+                    ConfigItemChecked: true
+                }));
+            If(!IsEmpty(Self.SolutionDetails.workflows),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.Flows,
+                    ConfigItemDisplayName: DocumentSectionString.Flows,
+                    ConfigItemParentValue: DocumentSectionString.UXAndAutomations,
+                    ConfigItemChecked: true
+                }));
+            If(!IsEmpty(Self.SolutionDetails.plugins),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.Plugins,
+                    ConfigItemDisplayName: DocumentSectionString.Plugins,
+                    ConfigItemParentValue: DocumentSectionString.DatanSecurity,
+                    ConfigItemChecked: true
+                }));
+            If(!IsEmpty(Self.SolutionDetails.codeComponents),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.CustomControls,
+                    ConfigItemDisplayName: DocumentSectionString.CustomControls,
+                    ConfigItemParentValue: DocumentSectionString.UXAndAutomations,
+                    ConfigItemChecked: true
+                })););
+            If(!IsEmpty(Self.SolutionDetails.tables),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.Tables,
+                    ConfigItemDisplayName: TableSection.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.DatanSecurity,
+                    ConfigItemChecked: true
+                }
+            ));
+            If(!IsBlank(Trim(IntelligentReviewVisualizer1_6.SolutionDetails.mermaidERDiagramExpression)) && CountRows(Self.SolutionDetails.tables) < 25,
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.EntityRelationship,
+                    ConfigItemDisplayName: EntityRelationshipSection.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.DatanSecurity,
+                    ConfigItemChecked: true
+                }
+            ));
+            If(!IsEmpty(Self.SolutionDetails.customApis),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.CustomAPI,
+                    ConfigItemDisplayName: CustomAPISection.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.DatanSecurity,
+                    ConfigItemChecked: true
+                }
+            ));
+            If(!IsEmpty(Self.SolutionDetails.aiModels),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.AIModel,
+                    ConfigItemDisplayName: AIModelSection.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.DatanSecurity,
+                    ConfigItemChecked: true
+                }
+            ));
+            If(!IsEmpty(Self.SolutionDetails.securityRoles),
+            Collect(ConfigurationCollection,
+                {
+                    ConfigItemValue: DocumentSectionString.Securityrole,
+                    ConfigItemDisplayName: SecurityRoleSection.DisplayName,
+                    ConfigItemParentValue: DocumentSectionString.DatanSecurity,
+                    ConfigItemChecked: true
+                }
+            ));
+            
+            UpdateContext(
+                { 
+                    varSolutionArchitectureDiagram:  Blank(),
+                    varERDiagram: Blank()
+                }
+            );
+            Clear(AllAppDetails);
+            Clear(FlowCollection);
+            
+            /*
+            ClearCollect(
+                SolutionDetailsDataset,
+                Table(
+                    {
+                        SolutionDetailItemKey: "information",
+                        SolutionDetailItemDisplayName: "",
+                        SolutionDetailItemValue: Blank(),
+                        SolutionDetailItemVisible: true,
+                        SolutionDetailItemHTML: "<h2 id='overview' style='font-size: 26px; font-weight: bold; color: #0078d4;'>Looking for PowerApps and PowerAutomate...</h2>"
+                    }));
+            */
+            // Limit the screen count to 30, so that, the input text does not exceeds the limit for the custom prompt   
+            /*ClearCollect(
+                        SolutionDetailsDataset,
+                        {
+                            SolutionDetailItemKey: "information",
+                            SolutionDetailItemDisplayName: "",
+                            SolutionDetailItemValue: Blank(),
+                            SolutionDetailItemVisible: true,
+                            SolutionDetailItemHTML: "<h2 style='font-size: 26px; font-weight: bold; color: #0078d4;'>Unpacking and understanding the Apps :</h2>"
+                        });*/
+            // Timer to stop the typing effect
+              
+            IfError(
+                ForAll(
+                    Self.SolutionDetails.canvasApps,
+                    With(
+                        {
+                            currentAppName: appName,
+                            screenSummary:
+                                If(
+                                    !IsEmpty(screens),
+                                    ForAll(
+                                        screens,
+                                        If(
+                                            !IsBlank(Trim(ThisRecord.screenYaml)),
+                                            'DocuPilot-CanvasAppScreenDescription'.Predict(JSON(ThisRecord, JSONFormat.Compact)).StructuredOutput,
+                                            {
+                                                screenName: ThisRecord.screenName,
+                                                screenDescription: "Screen description is not available. The YAML representation of this canvas screen might be missing. Please re-export the solution from an early release environment."
+                                            }
+                                        )
+                                    ),
+                                    Table({
+                                        screenName: "Unknown",
+                                        screenDescription: "No screens found in this app. Please re-export the solution from an early release environment."
+                                    })
+                                )
+                        },
+                        Collect(
+                            AllAppDetails,
+                            {
+                                appName: currentAppName,
+                                appDescription: 'DocuPilot-CanvasAppDescription'.Predict(JSON(FirstN(screenSummary,40), JSONFormat.Compact)).StructuredOutput.appDescription,
+                                screenSummary: screenSummary
+                            }
+                        )
+                    )
+                ),
+            ClearCollect(AllAppDetails, Blank())); // If an error occurs, return Blank()
+             /*
+            ClearCollect(SolutionDetailsDataset,
+                            {
+                                SolutionDetailItemKey: "information",
+                                SolutionDetailItemDisplayName: "",
+                                SolutionDetailItemValue: Blank(),
+                                SolutionDetailItemVisible: true,
+                                SolutionDetailItemHTML: "<h2 style='font-size: 26px; font-weight: bold; color: #0078d4;'> 🔍 Taking a closer look at Flows:</h2><br/>"
+                            });*/
+            IfError(ForAll(
+                    Filter(Self.SolutionDetails.workflows, category = "Modern Flow"),
+                    With(
+                        {
+                            flowDetails: 'DocuPilot-GetEachFlowSummary'.Predict(
+                                JSON(ThisRecord, JSONFormat.Compact)
+                            ).StructuredOutput
+                        },
+                        If(
+                            !IsBlank(flowDetails),
+                            Collect(
+                                FlowCollection,
+                                {
+                                    Name: flowDetails.Name,
+                                    Description: flowDetails.Description,
+                                    Actions: flowDetails.Actions,
+                                    Triggers: flowDetails.Triggers
+                                }
+                            )
+                        )
+                    )
+                ),
+                Clear(FlowCollection));
+            
+            // Temporarily store the solution details HTML in a collection to be used to generate the technical design document
+            ClearCollect(
+                TemporarySolutionDetailsDataset,
+                Table(
+                    {
+                        SolutionDetailItemKey: "SolutionDetails",
+                        SolutionDetailItemDisplayName: "",
+                        SolutionDetailItemValue: Self.SolutionDetails,
+                        SolutionDetailItemVisible: false,
+                        SolutionDetailItemHTML: ""
+                    },
+                    {
+                SolutionDetailItemKey: DocumentSectionString.SolutionDetails,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { solutionoverview: "" },
+                SolutionDetailItemVisible: !IsBlank(Self.SolutionDetails.solutionOverview),
+                SolutionDetailItemHTML: "
+                    <h2 id='" & DocumentSectionString.SolutionDetails & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Solution Details</h2><br/>
+                    <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                        <tr style='background-color: #0078d4; color: white;'>
+                            <th style='text-align: left; padding: 8px;width:200px; border: 1px solid #0078d4;'>Property</th>
+                            <th style='text-align: left; padding: 8px;width:500px; border: 1px solid #0078d4;'>Value</th>
+                        </tr>
+                        <tr>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'><strong>Solution Name</strong></td>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'>" & Coalesce(Self.SolutionDetails.solutionOverview.displayName, "N/A") & "</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'><strong>Unique Name</strong></td>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'>" & Coalesce(Self.SolutionDetails.solutionOverview.uniqueName, "N/A") & "</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'><strong>Description</strong></td>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'>" & If(!IsBlank(Self.SolutionDetails.solutionOverview.description), Self.SolutionDetails.solutionOverview.description, "No description provided.") & "</td>
+                        </tr>
+                         <tr>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'><strong>Solution Type</strong></td>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'>" & Coalesce(Self.SolutionDetails.solutionOverview.solutionType, "N/A") & "</td>
+                        </tr>
+                        <tr>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'><strong>Version</strong></td>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'>" & Coalesce(Self.SolutionDetails.solutionOverview.version, "N/A") & "</td>
+                        </tr>
+                    </table></div><br/>"
+            },{
+                SolutionDetailItemKey: DocumentSectionString.ArchitectureDiagram,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: Blank(),
+                SolutionDetailItemVisible: !IsBlank(First(Mermaid2PngSolutionDiagram.MermaidPNG).Value),
+                SolutionDetailItemHTML: "<br/><h2 id='" & DocumentSectionString.ArchitectureDiagram & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Solution Diagram</h2><br/><div class='solutiondiagram'>" & 
+                    Concat(
+                        Mermaid2PngSolutionDiagram.MermaidPNG,
+                            Substitute(
+                                Value,
+                                "visibility:hidden", 
+                                ""
+                            )
+                    ) & 
+                "</div>"
+            },
+            {
+                SolutionDetailItemKey: DocumentSectionString.Prerequisites,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { powerAutomate: "" },
+                SolutionDetailItemVisible: !IsEmpty(Self.SolutionDetails.environmentVariables) || !IsEmpty(Self.SolutionDetails.connectionReferences),
+                SolutionDetailItemHTML: 
+            "<br/><h2 id='" & DocumentSectionString.Prerequisites & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Pre-requisites</h2><br/>" &
+            
+            If(
+                !IsEmpty(Self.SolutionDetails.environmentVariables),
+                "
+                <h3 style='color: #0078d4;'>Environment Variables</h3><br/>
+                <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                    <tr style='background-color: #0078d4; color: white;'>
+                        <th style='text-align: left; padding: 8px;width:200px; border: 1px solid #0078d4;'>Name</th>
+                        <th style='text-align: left; padding: 8px;width:500px; border: 1px solid #0078d4;'>Description</th>
+                    </tr>" &
+                    Concat(
+                        Self.SolutionDetails.environmentVariables,
+                        "<tr>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'>" & ThisRecord.displayName & "</td>
+                            <td style='padding: 8px; border: 1px solid #0078d4;'>" & If(!IsBlank(ThisRecord.description), ThisRecord.description, "No description provided.") & "</td>
+                        </tr>"
+                    ) &
+                "</table></div><br/>",
+                ""
+            ) &
+            
+            If(
+                !IsEmpty(Self.SolutionDetails.connectionReferences),
+                "
+                <h3 style='color: #0078d4;'>Connection References</h3><br/>
+                <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                    <tr style='background-color: #0078d4; color: white;'>
+                        <th style='text-align: left; padding: 8px; border: 1px solid #0078d4;'>Display Name</th>
+                        <th style='text-align: left; padding: 8px; border: 1px solid #0078d4;'>Logical Name</th>
+                    </tr>" &
+                    Concat(
+                        Self.SolutionDetails.connectionReferences,
+                        "<tr>
+                            <td style='padding: 8px;width:350px; border: 1px solid #0078d4;'>" & ThisRecord.DisplayName & "</td>
+                            <td style='padding: 8px;width:350px; border: 1px solid #0078d4;'>" & ThisRecord.LogicalName & "</td>
+                        </tr>"
+                    ) &
+                "</table></div><br/>",
+                ""
+            )
+            },
+                {
+                    SolutionDetailItemKey: DocumentSectionString.UXAndAutomations,
+                    SolutionDetailItemDisplayName: "",
+                    SolutionDetailItemValue:  { ux: ""},
+                    SolutionDetailItemVisible: true,//!IsBlank(Find(DocumentSectionString.UXAndAutomations, Self.SelectedConfigValue)),
+                    SolutionDetailItemHTML: "<br/><h1  id='ux-automation' style='font-size: 30px; font-weight: bold; color: #0078d4;'>User Experience and Automations</h1><br/>" // Used to generate navigation header
+                },
+                {
+                SolutionDetailItemKey: DocumentSectionString.Apps,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { canvasApps: Blank() },
+                SolutionDetailItemVisible: !IsEmpty(AllAppDetails),
+                SolutionDetailItemHTML: 
+                "<h2 id='" & DocumentSectionString.Apps & "' style='font-size: 20px; font-weight: bold; color: #0078d4;'>Canvas Apps / Custom Pages</h2><br/>" &
+                Concat(
+                    AllAppDetails,
+                    "<h3 style='font-size: 14px; color: #0078d4;'>" & appName & ":</h3><br/>" &
+                    "<p><strong>Description:</strong> " & appDescription & "</p><br/>" &
+                    "<h4 style='font-size: 16px; color: #0078d4;'>Screens</h4><br/>" &
+                    Concat(
+                        screenSummary,
+                        "<h5 style='font-size: 14px;'>" & screenName & "</h5>" &
+                        "<p><strong>Description:</strong> " &screenDescription &
+                        "</p><br/>"
+                    )
+                )
+            },
+            {
+                SolutionDetailItemKey: DocumentSectionString.Flows,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { powerAutomate: "" },
+                SolutionDetailItemVisible: !IsEmpty(FlowCollection),
+                SolutionDetailItemHTML: "
+                <br/><h2 id='" & DocumentSectionString.Flows & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Power Automate</h2>
+                <br/>
+                <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                        <tr style='background-color: #0078d4; color: white;'>
+                            <th style='text-align: left; padding: 8px;width:150px; border: 1px solid #0078d4;'>Flow Name</th>
+                            <th style='text-align: left; padding: 8px;width:270px; border: 1px solid #0078d4;'>Description</th>
+                            <th style='text-align: left; padding: 8px;width:100px; border: 1px solid #0078d4;'>Triggers</th>
+                            <th style='text-align: left; padding: 8px;width:180px; border: 1px solid #0078d4;'>Actions</th>
+                        </tr>
+                        " & Concat(
+                            FlowCollection,
+                            "<tr>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.Name & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & 
+                                    If(!IsBlank(ThisRecord.Description), ThisRecord.Description, "No description provided.") & 
+                                "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>
+                                    <ul style='padding-left: 16px; margin: 0;'>" &
+                                        Concat(ThisRecord.Triggers, "<li>" & ThisRecord.item & "</li>") &
+                                    "</ul>
+                                </td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>
+                                    <ul style='padding-left: 16px; margin: 0;'>" &
+                                        Concat(ThisRecord.Actions, "<li>" & ThisRecord.item & "</li>") &
+                                    "</ul>
+                                </td>
+                            </tr>"
+                        ) & "
+                    </table>
+                </div>
+                <br/>"
+            },
+            {
+                SolutionDetailItemKey: DocumentSectionString.CustomControls,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { customcontrols: "" },
+                SolutionDetailItemVisible: !IsEmpty(Self.SolutionDetails.codeComponents),
+                SolutionDetailItemHTML: "
+                     <br/><h2 id='" & DocumentSectionString.CustomControls & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Custom Controls</h2> <br/>
+                    <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                        <tr style='background-color: #0078d4; color: white;'>
+                            <th style='padding: 8px; border: 1px solid #0078d4;'>Name</th>
+                            <th style='padding: 8px; border: 1px solid #0078d4;'>Description</th>
+                            <th style='padding: 8px; border: 1px solid #0078d4;'>Version</th>
+                        </tr>
+                        " & Concat(
+                            Self.SolutionDetails.codeComponents,
+                            "<tr>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.displayName & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.description & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.version & "</td>
+                            </tr>"
+                        ) & "
+                    </table></div>"
+            }, 
+            {
+                    SolutionDetailItemKey: DocumentSectionString.DatanSecurity,
+                    SolutionDetailItemDisplayName: "",
+                    SolutionDetailItemValue:  { datansecurity: ""},
+                    SolutionDetailItemVisible: true,//!IsBlank(Find(DocumentSectionString.UXAndAutomations, Self.SelectedConfigValue)),
+                    SolutionDetailItemHTML: "<br/><h1  id='" &DocumentSectionString.DatanSecurity& "' style='font-size: 30px; font-weight: bold; color: #0078d4;'>Data and Security</h1><br/>" // Used to generate navigation header
+            },
+            {
+                SolutionDetailItemKey: DocumentSectionString.Plugins,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { plugin: "" },
+                SolutionDetailItemVisible: !IsEmpty(Self.SolutionDetails.plugins),
+                SolutionDetailItemHTML: "
+                     <br/><h2 id='" & DocumentSectionString.Plugins & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Plugins</h2> <br/>
+                     <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                        <tr style='background-color: #0078d4; color: white;'>
+                            <th style='padding: 8px; border: 1px solid #0078d4;'>Plugin Name</th>
+                        </tr>
+                        " & Concat(
+                            Self.SolutionDetails.plugins,
+                            "<tr>
+                                <td style='padding: 8px; border: 1px solid #0078d4;'>" & ThisRecord.Name & "</td>
+                            </tr>"
+                        ) & "
+                    </table></div>"
+            }, 
+            {
+                SolutionDetailItemKey: DocumentSectionString.Tables,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { table: "" },
+                SolutionDetailItemVisible: !IsEmpty(Self.SolutionDetails.tables),
+                SolutionDetailItemHTML: "
+                    <br/> <h2 id='" & DocumentSectionString.Tables & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Tables</h2> <br/>
+                    <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                        <tr style='background-color: #0078d4; color: white;'>
+                            <th style='padding: 8px;width: 150px;border: 1px solid #0078d4;'>Table Name</th>
+                            <th style='padding: 8px;width: 300px;border: 1px solid #0078d4;'>Description</th>
+                            <th style='padding: 8px;width: 200px;border: 1px solid #0078d4;'>Fields</th>
+                        </tr>
+                        " & Concat(
+                            Self.SolutionDetails.tables,
+                            "<tr>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.DisplayName & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.Description & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>
+                                    <ul style='padding-left: 16px; margin: 0;'>" & 
+                                        Concat(ThisRecord.Fields, "<li>" & Name & "</li>") & "
+                                    </ul>
+                                </td>
+                            </tr>"
+                        ) & "
+                    </table></div>"
+            }, 
+            
+               {
+                SolutionDetailItemKey: DocumentSectionString.EntityRelationship,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { erDiagram: "" },
+                SolutionDetailItemVisible: !IsEmpty(Mermaid2PngERDiagram.MermaidPNG) && CountRows(Self.SolutionDetails.tables) < 25,
+                SolutionDetailItemHTML: 
+                    " <br/><h2 id='" & DocumentSectionString.EntityRelationship & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Entity Relationship Diagram</h2> <br/>
+                    <div class='erdiagram'>"  & 
+                    Concat(
+                        Mermaid2PngERDiagram.MermaidPNG,
+                            Substitute(
+                                Value,
+                                "visibility:hidden", 
+                                ""
+                            )
+                    ) & 
+                "</div>"
+            },
+            {
+                SolutionDetailItemKey: DocumentSectionString.CustomAPI,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { customapi: "" },
+                SolutionDetailItemVisible: !IsEmpty(Self.SolutionDetails.customApis),
+                SolutionDetailItemHTML: "
+                     <br/><h2 id='" & DocumentSectionString.CustomAPI & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Custom APIs</h2> <br/>
+                    <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                        <tr style='background-color: #0078d4; color: white;'>
+                            <th style='padding: 8px;width:150px; border: 1px solid #0078d4;'>Name</th>
+                            <th style='padding: 8px;width:390px; border: 1px solid #0078d4;'>Description</th>
+                            <th style='padding: 8px;width:90px; border: 1px solid #0078d4;'>Is Function</th>
+                            <th style='padding: 8px;width:70px; border: 1px solid #0078d4;'>Is Private</th>
+                        </tr>
+                        " & Concat(
+                            Self.SolutionDetails.customApis,
+                            "<tr>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.displayName & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.description & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & If(ThisRecord.isFunction, "Yes", "No") & "</td>
+                                <td style='padding: 8px; border: 1px solid #0078d4'>" & If(ThisRecord.isPrivate, "Yes", "No") & "</td>
+                            </tr>"
+                        ) & "
+                    </table></div>"
+            },
+            {
+                SolutionDetailItemKey: DocumentSectionString.AIModel,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { aiModel: "" },
+                SolutionDetailItemVisible: !IsEmpty(Self.SolutionDetails.aiModels),
+                SolutionDetailItemHTML:
+                    "<br/><h2 id='" & DocumentSectionString.AIModel & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>AI Model(s)</h2><br/>" &
+                    "<div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>" &
+                        "<tr style='background-color: #0078d4; color: white;'>" &
+                            "<th style='padding: 8px; border: 1px solid #0078d4;'>Model Name</th>" &
+                            "<th style='padding: 8px; border: 1px solid #0078d4;'>Model Type</th>" &
+                        "</tr>" &
+                        Concat(
+                            Self.SolutionDetails.aiModels,
+                            "<tr>" &
+                                "<td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.Name & "</td>" &
+                                "<td style='padding: 8px; border: 1px solid #0078d4'>" & ThisRecord.Model & "</td>" &
+                            "</tr>"
+                        ) &
+                    "</table></div>"
+            },
+            {
+                SolutionDetailItemKey: DocumentSectionString.Securityrole,
+                SolutionDetailItemDisplayName: "",
+                SolutionDetailItemValue: { securityroles: "" },
+                SolutionDetailItemVisible: !IsEmpty(Self.SolutionDetails.securityRoles),
+                SolutionDetailItemHTML: "
+                     <br/><h2 id='" & DocumentSectionString.Securityrole & "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Security Role(s)</h2> <br/>
+                    <div style='max-width: 700px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;'>
+                    <table style='width: 100%; border-collapse: collapse; border: 1px solid #0078d4;'>
+                        <tr style='background-color: #0078d4; color: white;'>
+                            <th style='padding: 8px; border: 1px solid #0078d4;'>Role Name</th>
+                        </tr>
+                        " & Concat(
+                            Self.SolutionDetails.securityRoles,
+                            "<tr>
+                                <td style='padding: 8px; border: 1px solid #0078d4;'>" & ThisRecord.name & "</td>
+                            </tr>"
+                        ) & "
+                    </table></div>"
+            }
+            ));
+            UpdateContext(
+                { overviewsummaryResults: 'DocupilotOverviewSummary_v1'.Predict(
+                    Concat(
+                        Filter(
+                            TemporarySolutionDetailsDataset,
+                            Not(SolutionDetailItemKey in [DocumentSectionString.ArchitectureDiagram, DocumentSectionString.EntityRelationship]) // Exclude specific keys representing image to limit characters
+                        ),
+                        SolutionDetailItemHTML & " "
+                    )
+                ).StructuredOutput });
+                
+            If(
+                IsError(overviewsummaryResults),
+                UpdateContext({ varOveriewSummary: Blank() }), 
+                UpdateContext({ varOveriewSummary: overviewsummaryResults })
+            );
+            Clear(SolutionDetailsDataset);
+            UpdateContext({latencyMessage:""});
+            // Generate document's overview & summary based on the information/html collected so far
+            Collect(SolutionDetailsDataset,   
+                    // This first item is to provide all the information necessary related to solution details for the doc preview component
+                    // It is important to set the visibility to false and set -{ SolutionDetailItemKey: "SolutionDetails"}
+                    Table(
+                        {
+                        SolutionDetailItemKey: "SolutionDetails",
+                        SolutionDetailItemDisplayName: "",
+                        SolutionDetailItemValue: Self.SolutionDetails,
+                        SolutionDetailItemVisible: false,//!IsBlank(Find(DocumentSectionString.Overview, Self.SelectedConfigValue)),
+                        SolutionDetailItemHTML: ""
+                    },
+                    {
+                        SolutionDetailItemKey: "SolutionDocumentTitle",
+                        SolutionDetailItemDisplayName: "",
+                        SolutionDetailItemValue: { overview: ""},
+                        SolutionDetailItemVisible: true,
+                        SolutionDetailItemHTML: "<h1 style='font-size: 34px;font-weight: 700; margin: 10px 0;color: #0078d4;line-height: 1.2; font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;'>Technical Design Document for "&Self.SolutionDetails.solutionOverview.displayName&"</h1><br/>"
+                    },  
+                    {
+                        SolutionDetailItemKey: DocumentSectionString.Overview,
+                        SolutionDetailItemDisplayName: "",
+                        SolutionDetailItemValue: { overview: ""},
+                        SolutionDetailItemVisible: !IsBlank(varOveriewSummary),
+                         SolutionDetailItemHTML: 
+                            "<h1 id='" & DocumentSectionString.Overview & "' style='font-size: 24px; font-weight: bold; color: #0078d4;'>Overview</h1><br/>
+                            <div class='overview'>
+                                <span>"&varOveriewSummary.overview&"</span>
+                            </div><br/>"
+             }));
+             // Using temporary dataset to readjust order
+             // TODO: Make order as one of the key to define sort order
+             Collect(SolutionDetailsDataset,  TemporarySolutionDetailsDataset );
+             Collect(SolutionDetailsDataset,  {
+                        SolutionDetailItemKey: DocumentSectionString.Summary,
+                        SolutionDetailItemDisplayName: "",
+                        SolutionDetailItemValue: { summary: ""},
+                        SolutionDetailItemVisible: !IsBlank(varOveriewSummary),
+                         SolutionDetailItemHTML: 
+                       "<br/><h1 id='"&DocumentSectionString.Summary& "' style='font-size: 20px; font-weight: 600; color: #0078d4;'>Summary</h1><br/>
+                    <p>
+                        " & If(!IsBlank(varOveriewSummary.summary), varOveriewSummary.summary, "No summary available.") & "
+                    </p><br/>"
+             });
+             ClearCollect(TemporarySolutionDetailsDataset, SolutionDetailsDataset);
+             ClearCollect(SolutionDetailsDataset, Blank());
+             ClearCollect(SolutionDetailsDataset, TemporarySolutionDetailsDataset);
+            UpdateContext({varDisablePreview: false,varEnableTypingEffect:false, showFlair:"ShowFlair"&Rand()});
+        ReviewSolution: =false
+        SolutionFile: =varRequestRecord.'Solution Zip'
+        SolutionName: =varRequestRecord.'Solution Name'
+        Visible: =true
+        Width: =226
+        X: =788
+        Y: =148
+        ZIndex: =5
+
+    DocPreview1 As DocPreview.pcfdataset:
+        DisabledPreview: =varDisablePreview
+        DisplayMode: =DisplayMode.Edit
+        EnableTyping: =varEnableTypingEffect
+        Height: =App.Height
+        InputEvent: =showFlair
+        Items: =ConfigurationCollection
+        LatencyMessage: =latencyMessage
+        OnBackClick: =Navigate('Home Screen')
+        OnConfigChange: |+
+            =Set(
+                SelectedKeys,
+                ForAll(
+                    Split(Self.SelectedConfigValue, ","),
+                    Trim(Value)
+                )
+            );
+            
+            // Step 2: Loop over all records and set visibility based on key presence
+            If(
+                IsBlank(Self.SelectedConfigValue),
+                // Case 1: No config selected – hide all items
+                ForAll(
+                    SolutionDetailsDataset,
+                    Patch(
+                        SolutionDetailsDataset,
+                        ThisRecord,
+                        { SolutionDetailItemVisible: false }
+                    )
+                ),
+                // Case 2: Config selected – apply filtering logic
+                With(
+                    {
+                        SelectedKeys: ForAll(
+                            Split(Self.SelectedConfigValue, ","),
+                            Trim(Value)
+                        )
+                    },
+                    ForAll(
+                        SolutionDetailsDataset,
+                        Patch(
+                            SolutionDetailsDataset,
+                            ThisRecord,
+                            {
+                                SolutionDetailItemVisible:
+                                    SolutionDetailItemKey in SelectedKeys &&
+                                    !IsBlank(
+                                        LookUp(
+                                            ConfigurationCollection,
+                                            ConfigItemValue = SolutionDetailItemKey
+                                        )
+                                    )
+                            }
+                        )
+                    )
+                )
+            );
+            // Default section and header should remain selected
+            Patch(SolutionDetailsDataset,
+                            LookUp(SolutionDetailsDataset, SolutionDetailItemKey = "SolutionDocumentTitle"),
+                            {
+                                SolutionDetailItemVisible:true
+                            }
+                        );
+            
+            If(!IsBlank(Self.SelectedConfigValue),
+            Patch(SolutionDetailsDataset,
+                            LookUp(SolutionDetailsDataset, SolutionDetailItemKey = DocumentSectionString.UXAndAutomations),
+                            {
+                                SolutionDetailItemVisible:true
+                            }
+                        );
+            
+            Patch(SolutionDetailsDataset,
+                            LookUp(SolutionDetailsDataset, SolutionDetailItemKey = DocumentSectionString.Overview),
+                            {
+                                SolutionDetailItemVisible:true
+                            }
+                        );
+            Patch(SolutionDetailsDataset,
+                            LookUp(SolutionDetailsDataset, SolutionDetailItemKey = DocumentSectionString.DatanSecurity),
+                            {
+                                SolutionDetailItemVisible:true
+                            }
+                        ));
+            
+        RecordID: =varRequestRecord.'DocuPilot Document Generation Request'
+        SolutionDetails_Items: =SolutionDetailsDataset
+        TriggerEvents: =
+        Width: =App.Width
+        X: =0
+        Y: =0
+        ZIndex: =6
+
+    cSpinner_6 As groupContainer.verticalAutoLayoutContainer:
+        DropShadow: =DropShadow.Light
+        Fill: |-
+            =ColorValue("#fafafa")
+        Height: =Parent.Height
+        LayoutDirection: =LayoutDirection.Vertical
+        LayoutMode: =LayoutMode.Auto
+        RadiusBottomLeft: =4
+        RadiusBottomRight: =4
+        RadiusTopLeft: =4
+        RadiusTopRight: =4
+        Visible: =showSaveLoader
+        Width: =Parent.Width
+        ZIndex: =7
+
+        Spinner1_8 As Spinner:
+            DisplayMode: =DisplayMode.Edit
+            Height: =Parent.Height
+            Label: =If(IsBlank(CurrentLoaderMessage.Value),"Reading Solution",CurrentLoaderMessage.Value)
+            LayoutMinHeight: =200
+            LayoutMinWidth: =200
+            SpinnerSize: ='Spinner.SpinnerSize'.Large
+            Visible: =showSaveLoader
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+

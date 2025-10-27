@@ -1,0 +1,119 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cat_riskassessmentsettings",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cat_riskassessmentsetting",
+    "MaxGetRowsCount": 2000,
+    "Name": "Risk Assessment Settings",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cat_description": "Description",
+      "cat_isdefault": "Is Default",
+      "cat_name": "Name",
+      "cat_privilegeriskbaseline_RiskAssessmentSetting_cat_riskassessmentsetting": "Privilege Risk Baselines",
+      "cat_RiskAssessment_cat_RiskAssessment": "Risk Assessments",
+      "cat_riskassessmentsetting_AsyncOperations": "System Jobs",
+      "cat_riskassessmentsetting_BulkDeleteFailures": "Bulk Delete Failures",
+      "cat_riskassessmentsetting_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cat_riskassessmentsetting_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cat_riskassessmentsetting_ProcessSession": "Process Sessions",
+      "cat_riskassessmentsetting_SyncErrors": "Sync Errors",
+      "cat_riskassessmentsettingid": "Risk Assessment Setting",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Risk Assessment Settings",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Risk Assessment Settings (Views)",
+    "Name": "_cat_riskassessmentsetting_views",
+    "RelatedEntityName": "Risk Assessment Settings",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "1003e88b-d36e-4280-bbab-4340a1887d14": "Active Risk Assessment Settings",
+      "2486f6c7-cd57-4140-b5b0-fa23d8331e02": "Risk Assessment Setting Advanced Find View",
+      "576dead0-1d05-4150-a49c-abae271e5023": "Inactive Risk Assessment Settings",
+      "5bc9034d-7cc3-42a2-8842-0628f7ecac7b": "Risk Assessment Setting Associated View",
+      "adff9134-55ec-4920-9af3-340a89082212": "Risk Assessment Setting Lookup View"
+    }
+  },
+  {
+    "DisplayName": "Is Default (Risk Assessment Settings)",
+    "Name": "cat_riskassessmentsetting_cat_isdefault",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_isdefault",
+        "OptionSetReferenceEntityName": "Risk Assessment Settings"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cat_isdefault",
+    "RelatedEntityName": "Risk Assessment Settings",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Risk Assessment Settings)",
+    "Name": "cat_riskassessmentsetting_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Risk Assessment Settings"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Risk Assessment Settings",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Risk Assessment Settings)",
+    "Name": "cat_riskassessmentsetting_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Risk Assessment Settings"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Risk Assessment Settings",
+    "Type": "OptionSetInfo"
+  }
+]
